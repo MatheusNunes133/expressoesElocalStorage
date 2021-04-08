@@ -22,3 +22,30 @@ const Mask= {
             input.value = value;
     }
 }
+const Validate={
+    clearErrors(input){
+        let value=input.value;
+        const errorDiv=input.parentNode.querySelector('.error');
+        if(errorDiv){
+            errorDiv.remove()
+            return;
+        }
+        input.value= value;
+    }, displayError(input, error){
+        const div=document.createElement('div');
+        div.classList.add('error');
+        div.innerHTML=error;
+        input.parentNode.appendChild(div);
+        input.focus();
+    }, isCEP(input){
+        Validate.clearErrors(input);
+        let value=input.value;
+        let error= null;
+        const clearValues=value.replace(/\D/g, '');
+        if(clearValues.length!=8){
+            error="CEP incorreto"
+            Validate.displayError(input, error);
+        }
+        input.value=value;
+    }
+}
